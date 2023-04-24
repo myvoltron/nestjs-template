@@ -6,6 +6,7 @@ import { AppController } from './app.controller';
 import { CONFIG_OPTIONS_PROVIDER } from './common/config/config-options.service';
 import { TypeOrmConfigService } from './common/config/typeorm-config.service';
 import { WinstonConfigService } from './common/logger/winston-config.service';
+import { CatsModule } from './modules/cats/cats.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { WinstonConfigService } from './common/logger/winston-config.service';
       imports: [ConfigModule],
       useClass: WinstonConfigService,
     }),
+    CatsModule,
   ],
   controllers: [AppController],
 })
