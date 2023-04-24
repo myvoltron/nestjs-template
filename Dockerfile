@@ -4,10 +4,12 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm install
+RUN yarn set version berry
+
+RUN yarn install
 
 COPY . .
 
-RUN npm run build
+# RUN npm run build
 
-CMD [ "node", "dist/main.js" ]
+CMD [ "yarn", "run", "start:dev" ]
