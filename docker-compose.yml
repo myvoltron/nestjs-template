@@ -8,7 +8,6 @@ services:
       - .:/usr/src/app
     ports:
       - ${APP_PORT}:${APP_PORT}
-    command: npm run start:dev
     env_file:
       - .env
     depends_on:
