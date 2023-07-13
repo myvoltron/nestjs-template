@@ -5,9 +5,7 @@ import { Cat } from './cats.entity';
 
 @Injectable()
 export class CatsRepository extends Repository<Cat> {
-  constructor(
-    @InjectRepository(Cat) private readonly repository: Repository<Cat>,
-  ) {
+  constructor(@InjectRepository(Cat) private readonly repository: Repository<Cat>) {
     super(repository.target, repository.manager, repository.queryRunner);
   }
 }
