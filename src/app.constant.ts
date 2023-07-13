@@ -4,6 +4,6 @@ export enum ENV {
   Production = 'PRODUCTION',
 }
 
-export enum APP_CATS_PATH {
-  ROOT = 'cats',
+export enum AppPath {
+  HeartBeat = 'heartbeat',
 }
