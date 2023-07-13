@@ -27,8 +27,8 @@ export class CatsController {
    * @TODO user 기능이 추가되었을 때, 회원 인가를 통해서 고양이 정보를 추가할 수 있도록 기능 추가가 필요
    */
   @ApiOperation({ summary: '고양이를 추가합니다.' })
-  @ApiOperation({ description: 'cat을 추가합니다.' })
-  @ApiOkResponse({ type: GetCatsOkResponseDTO })
+  @ApiCreatedResponse({ type: GetCatsOkResponseDTO })
+  @HttpCode(HttpStatus.CREATED)
   @Post()
   async addCat(@Body() body: AddCatBodyDTO): Promise<GetCatsOkResponseDTO> {
     return this.catsService.addCat(body);
