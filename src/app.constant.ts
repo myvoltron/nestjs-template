@@ -1,7 +1,7 @@
 export enum Env {
-  Local = 'LOCAL',
-  Develop = 'DEVELOP',
-  Production = 'PRODUCTION',
+  Local = 'local',
+  Develop = 'develop',
+  Production = 'production',
 }
 
 export enum AppPath {
