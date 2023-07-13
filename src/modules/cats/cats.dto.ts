@@ -21,3 +21,21 @@ export class AddCatBodyDTO {
   @ApiProperty()
   kind: string;
 }
+
+export class UpdateCatQueryDTO {
+  @ApiProperty()
+  idx: number;
+}
+
+export class UpdateCatBodyDTO {
+  @ApiProperty()
+  name: string;
+
+  @ApiProperty()
+  kind: string;
+}
+
+export class DeleteCatQueryDTO {
+  @ApiProperty()
+  idx: number;
+}
