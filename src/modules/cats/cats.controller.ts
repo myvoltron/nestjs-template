@@ -8,6 +8,7 @@ import {
   UpdateCatBodyDTO,
   UpdateCatQueryDTO,
 } from './cats.dto';
+import { DeleteCatQueryPipe, UpdateCatQueryPipe } from './cats.pipe';
 import { CatsService } from './cats.service';
 
 @ApiTags(CatsPath.Root)
@@ -32,14 +33,14 @@ export class CatsController {
   @ApiOperation({ summary: 'update cats information' })
   @ApiOkResponse({ type: GetCatsOkResponseDTO })
   @Put(`/${CatsPath.Idx}`)
-  async updateCat(@Query() query: UpdateCatQueryDTO, @Body() body: UpdateCatBodyDTO) {
-    return this.catsService.updateCat(query, body);
+  async updateCat(@Query(UpdateCatQueryPipe) query: UpdateCatQueryDTO, @Body() body: UpdateCatBodyDTO) {
+    this.catsService.updateCat(query, body);
   }
 
   @ApiOperation({ summary: 'delete cats' })
   @ApiOkResponse({ type: GetCatsOkResponseDTO })
   @Delete(`/${CatsPath.Idx}`)
-  async deleteCat(@Query() query: DeleteCatQueryDTO) {
-    return this.catsService.deleteCat(query);
+  async deleteCat(@Query(DeleteCatQueryPipe) query: DeleteCatQueryDTO) {
+    this.catsService.deleteCat(query);
   }
 }
