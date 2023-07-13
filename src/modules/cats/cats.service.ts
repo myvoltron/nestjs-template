@@ -16,8 +16,8 @@ export class CatsService {
     return this.catsRepository.find();
   }
 
-  async addCat(cat: AddCatBodyDTO): Promise<Cat> {
-    const catInstance = this.createInstance(cat);
+  async addCat(dto: AddCatBodyDTO): Promise<Cat> {
+    const catInstance = this.createInstance(dto);
     return this.catsRepository.save(catInstance);
   }
 }
