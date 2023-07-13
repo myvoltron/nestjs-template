@@ -1,6 +1,13 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CatsPath } from './cats.constant';
+import {
+  AddCatBodyDTO,
+  DeleteCatQueryDTO,
+  GetCatsOkResponseDTO,
+  UpdateCatBodyDTO,
+  UpdateCatQueryDTO,
+} from './cats.dto';
 import { CatsService } from './cats.service';
 
 @ApiTags(CatsPath.Root)
@@ -20,5 +27,19 @@ export class CatsController {
   @Post()
   async addCat(@Body() body: AddCatBodyDTO): Promise<GetCatsOkResponseDTO> {
     return this.catsService.addCat(body);
+  }
+
+  @ApiOperation({ summary: 'update cats information' })
+  @ApiOkResponse({ type: GetCatsOkResponseDTO })
+  @Put(`/${CatsPath.Idx}`)
+  async updateCat(@Query() query: UpdateCatQueryDTO, @Body() body: UpdateCatBodyDTO) {
+    return this.catsService.updateCat(query, body);
+  }
+
+  @ApiOperation({ summary: 'delete cats' })
+  @ApiOkResponse({ type: GetCatsOkResponseDTO })
+  @Delete(`/${CatsPath.Idx}`)
+  async deleteCat(@Query() query: DeleteCatQueryDTO) {
+    return this.catsService.deleteCat(query);
   }
 }
