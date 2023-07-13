@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Post, Put, Query } from '@nestjs/common';
-import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put, Query } from '@nestjs/common';
+import { ApiCreatedResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CatsPath } from './cats.constant';
 import {
   AddCatBodyDTO,
@@ -16,13 +16,17 @@ import { CatsService } from './cats.service';
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
-  @ApiOperation({ description: 'cat들을 조회합니다.' })
+  @ApiOperation({ summary: '추가된 고양이 목록을 조회합니다.' })
   @ApiOkResponse({ type: GetCatsOkResponseDTO, isArray: true })
   @Get()
   async getCats(): Promise<GetCatsOkResponseDTO[]> {
     return this.catsService.getCats();
   }
 
+  /**
+   * @TODO user 기능이 추가되었을 때, 회원 인가를 통해서 고양이 정보를 추가할 수 있도록 기능 추가가 필요
+   */
+  @ApiOperation({ summary: '고양이를 추가합니다.' })
   @ApiOperation({ description: 'cat을 추가합니다.' })
   @ApiOkResponse({ type: GetCatsOkResponseDTO })
   @Post()
@@ -30,14 +34,20 @@ export class CatsController {
     return this.catsService.addCat(body);
   }
 
-  @ApiOperation({ summary: 'update cats information' })
+  /**
+   * @TODO user 기능이 추가되었을 때, 회원 인가를 통해서 고양이 정보를 수정할 수 있도록 기능 추가가 필요
+   */
+  @ApiOperation({ summary: '기존에 추가되었던 고양이의 정보를 수정합니다.' })
   @ApiOkResponse({ type: GetCatsOkResponseDTO })
   @Put(`/${CatsPath.Idx}`)
   async updateCat(@Query(UpdateCatQueryPipe) query: UpdateCatQueryDTO, @Body() body: UpdateCatBodyDTO) {
     this.catsService.updateCat(query, body);
   }
 
-  @ApiOperation({ summary: 'delete cats' })
+  /**
+   * @TODO user 기능이 추가되었을 때, 회원 인가를 통해서 고양이 정보를 삭제할 수 있도록 기능 추가가 필요
+   */
+  @ApiOperation({ summary: '기존에 추가되었던 고양이 정보를 삭제합니다.' })
   @ApiOkResponse({ type: GetCatsOkResponseDTO })
   @Delete(`/${CatsPath.Idx}`)
   async deleteCat(@Query(DeleteCatQueryPipe) query: DeleteCatQueryDTO) {
