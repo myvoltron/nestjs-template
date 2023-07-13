@@ -1,11 +1,10 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { APP_CATS_PATH } from 'src/app.constant';
-import { AddCatBodyDTO, GetCatsOkResponseDTO } from './cats.dto';
+import { CatsPath } from './cats.constant';
 import { CatsService } from './cats.service';
 
-@ApiTags(APP_CATS_PATH.ROOT)
-@Controller(APP_CATS_PATH.ROOT)
+@ApiTags(CatsPath.Root)
+@Controller(CatsPath.Root)
 export class CatsController {
   constructor(private catsService: CatsService) {}
 
