@@ -1,4 +1,4 @@
-export enum ENV {
+export enum Env {
   Local = 'LOCAL',
   Develop = 'DEVELOP',
   Production = 'PRODUCTION',

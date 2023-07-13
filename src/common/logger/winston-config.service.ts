@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { utilities, WinstonModuleOptionsFactory } from 'nest-winston';
-import { ENV } from 'src/app.constant';
+import { Env } from 'src/app.constant';
 import * as winston from 'winston';
 import { format, LoggerOptions } from 'winston';
 import * as DailyRotateFile from 'winston-daily-rotate-file';
@@ -36,7 +36,7 @@ export class WinstonConfigService implements WinstonModuleOptionsFactory {
       transports: [
         new winston.transports.Console({
           format:
-            this.environment === ENV.Production
+            this.environment === Env.Production
               ? format.simple()
               : format.combine(
                   format.timestamp(),
