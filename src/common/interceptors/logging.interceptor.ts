@@ -1,16 +1,29 @@
-import { CallHandler, ExecutionContext, NestInterceptor } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
+import { Request, Response } from 'express';
+import { Observable, tap } from 'rxjs';
+import { WinstonLogger } from 'src/common/logger/winston-logger.serivce';
 
-/**
- * @todo api request와 response를 로그로 남기는 interceptor 클래스를 추가한다.
- */
+@Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  constructor() {}
+  constructor(private logger: WinstonLogger) {}
 
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-    const request = context.switchToHttp().getRequest();
-    const response = context.switchToHttp().getResponse();
+    const now = Date.now();
 
-    return;
+    return next.handle().pipe(
+      tap(() => {
+        const request = context.switchToHttp().getRequest<Request>();
+        const response = context.switchToHttp().getResponse<Response>();
+
+        const loggingObject = {
+          method: request.method,
+          url: request.url,
+          statusCode: response.statusCode,
+          executionTime: `${Date.now() - now}ms`,
+        };
+
+        this.logger.log(JSON.stringify(loggingObject));
+      }),
+    );
   }
 }
