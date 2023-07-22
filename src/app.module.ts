@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm/dist';
 import { AppController } from './app.controller';
 import { CONFIG_OPTIONS_PROVIDER } from './common/config/config-options.service';
 import { TypeOrmConfigService } from './common/config/typeorm-config.service';
+import { AllExceptionFilter } from './common/filters/all-exception.filter';
 import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { WinstonLoggerModule } from './common/logger/winston-logger.module';
 import { CatsModule } from './modules/cats/cats.module';
@@ -19,7 +20,10 @@ import { CatsModule } from './modules/cats/cats.module';
     WinstonLoggerModule,
     CatsModule,
   ],
-  providers: [{ provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }],
+  providers: [
+    { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
+    { provide: APP_FILTER, useClass: AllExceptionFilter },
+  ],
   controllers: [AppController],
 })
 export class AppModule {}
