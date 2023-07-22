@@ -1,5 +1,9 @@
 import { Injectable, LoggerService } from '@nestjs/common';
-import winston, { Logger } from 'winston';
+import { ConfigService } from '@nestjs/config';
+import { Env } from 'src/app.constant';
+import * as winston from 'winston';
+import { Logger } from 'winston';
+import 'winston-daily-rotate-file';
 
 /**
  * @summary Nest.js의 LoggerService를 구현하는 winston logger입니다.
@@ -14,30 +18,71 @@ export class WinstonLogger implements LoggerService {
   private logLogger: Logger;
   private errorLogger: Logger;
 
-  constructor() {
+  private readonly projectName: string;
+  private readonly environment: string;
+
+  private readonly rotateOptions: any;
+  private readonly rotateFormat: any;
+
+  constructor(private configService: ConfigService) {
+    this.projectName = this.configService.get<string>('PROJECT_NAME');
+    this.environment = this.configService.get<string>('ENV');
+
+    this.rotateOptions = {
+      datePattern: 'YYYY-MM-DD',
+      maxFiles: '30d',
+      maxSize: '100m',
+      utc: true,
+    };
+    this.rotateFormat = winston.format.combine(
+      winston.format.label({ label: this.projectName }),
+      winston.format.timestamp(),
+      winston.format.json(),
+    );
+
     this.logLogger = winston.createLogger({
       level: 'info',
-      format: winston.format.combine(
-        winston.format.timestamp({
-          format: 'YYYY-MM-DD HH:mm:ss',
+      transports: [
+        new winston.transports.Console({
+          format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
         }),
-        winston.format.json(),
-      ),
-      transports: [new winston.transports.Console({})],
+        new winston.transports.DailyRotateFile({
+          format: this.rotateFormat,
+          filename: `./logs/%DATE%-${this.projectName}.log`,
+          ...this.rotateOptions,
+        }),
+      ],
     });
     this.errorLogger = winston.createLogger({
       level: 'error',
-      format: winston.format.combine(
-        winston.format.timestamp({
-          format: 'YYYY-MM-DD HH:mm:ss',
+      transports: [
+        new winston.transports.DailyRotateFile({
+          format: this.rotateFormat,
+          filename: `./logs/%DATE%-${this.projectName}-error.log`,
+          ...this.rotateOptions,
         }),
-        winston.format.json(),
-      ),
-      transports: [new winston.transports.Console({})],
+      ],
     });
+
+    if (this.environment !== Env.Production) {
+      this.errorLogger.add(
+        new winston.transports.Console({
+          format: winston.format.combine(winston.format.colorize(), winston.format.simple()),
+        }),
+      );
+    }
   }
 
-  log(message: any, ...optionalParams: any[]) {}
-  error(message: any, ...optionalParams: any[]) {}
-  warn(message: any, ...optionalParams: any[]) {}
+  log(message: any) {
+    this.logLogger.info(message);
+  }
+  info(message: any) {
+    this.logLogger.info(message);
+  }
+  error(message: any) {
+    this.errorLogger.error(message);
+  }
+  warn(message: any) {
+    this.errorLogger.warn(message);
+  }
 }
