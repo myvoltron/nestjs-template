@@ -1,9 +1,11 @@
 import { Injectable, LoggerService } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import { Env } from 'src/app.constant';
 import * as winston from 'winston';
 import { Logger } from 'winston';
 import 'winston-daily-rotate-file';
+import { ExtendedRequest } from './extended-request';
 
 /**
  * @summary Nest.js의 LoggerService를 구현하는 winston logger입니다.
@@ -84,5 +86,16 @@ export class WinstonLogger implements LoggerService {
   }
   warn(message: any) {
     this.errorLogger.warn(message);
+  }
+
+  createLoggingObject(request: ExtendedRequest, response: Response) {
+    return {
+      method: request.method,
+      url: request.url,
+      statusCode: response.statusCode,
+      startTime: request.extra.getStartTime(),
+      endTime: request.extra.getEndTime(),
+      executionTime: `${request.extra.getExecutionTime()}ms`,
+    };
   }
 }
