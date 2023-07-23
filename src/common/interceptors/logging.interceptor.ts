@@ -1,27 +1,22 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Observable, tap } from 'rxjs';
 import { WinstonLogger } from 'src/common/logger/winston-logger.serivce';
+import { ExtendedRequest } from '../logger/extended-request';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
   constructor(private logger: WinstonLogger) {}
 
   intercept(context: ExecutionContext, next: CallHandler<any>): Observable<any> | Promise<Observable<any>> {
-    const now = Date.now();
-
     return next.handle().pipe(
       tap(() => {
-        const request = context.switchToHttp().getRequest<Request>();
+        const request = context.switchToHttp().getRequest<ExtendedRequest>();
         const response = context.switchToHttp().getResponse<Response>();
 
-        const loggingObject = {
-          method: request.method,
-          url: request.url,
-          statusCode: response.statusCode,
-          executionTime: `${Date.now() - now}ms`,
-        };
+        request.extra.setExecutionTime();
 
+        const loggingObject = this.logger.createLoggingObject(request, response);
         this.logger.log(JSON.stringify(loggingObject));
       }),
     );
