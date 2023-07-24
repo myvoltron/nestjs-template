@@ -1168,6 +1168,77 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry-internal/tracing@npm:7.60.0":
+  version: 7.60.0
+  resolution: "@sentry-internal/tracing@npm:7.60.0"
+  dependencies:
+    "@sentry/core": 7.60.0
+    "@sentry/types": 7.60.0
+    "@sentry/utils": 7.60.0
+    tslib: ^2.4.1 || ^1.9.3
+  checksum: ebd60aea46ca4317303ddb6ee4d6d440fd1b6c936a7c30081944d6197406a13465c7211a1490f199f2b5c51c2de51e5e6471a082990891150fcbeedc28c6464e
+  languageName: node
+  linkType: hard
+
+"@sentry/cli@npm:latest":
+  version: 2.20.0
+  resolution: "@sentry/cli@npm:2.20.0"
+  dependencies:
+    https-proxy-agent: ^5.0.0
+    node-fetch: ^2.6.7
+    progress: ^2.0.3
+    proxy-from-env: ^1.1.0
+    which: ^2.0.2
+  bin:
+    sentry-cli: bin/sentry-cli
+  checksum: 7ad32ecec015233b2aa823ed0a4a3d5f76bd2d91ae8cc43ab3f9a9c03359b05bae145f53e3dfb3504ae873479f703fec72de64e564aa43c5cc33847ce72f83b3
+  languageName: node
+  linkType: hard
+
+"@sentry/core@npm:7.60.0":
+  version: 7.60.0
+  resolution: "@sentry/core@npm:7.60.0"
+  dependencies:
+    "@sentry/types": 7.60.0
+    "@sentry/utils": 7.60.0
+    tslib: ^2.4.1 || ^1.9.3
+  checksum: 33d5c69f9507a49ac22d36bfe772625b328cd75a4b5c9d64af8b2d8635b3e502e1e98e0eaab51458e4d8b55739daa1c34294aa4179eeb6fe4f285c03b08e6328
+  languageName: node
+  linkType: hard
+
+"@sentry/node@npm:^7.60.0":
+  version: 7.60.0
+  resolution: "@sentry/node@npm:7.60.0"
+  dependencies:
+    "@sentry-internal/tracing": 7.60.0
+    "@sentry/core": 7.60.0
+    "@sentry/types": 7.60.0
+    "@sentry/utils": 7.60.0
+    cookie: ^0.4.1
+    https-proxy-agent: ^5.0.0
+    lru_map: ^0.3.3
+    tslib: ^2.4.1 || ^1.9.3
+  checksum: 3ec42ea5d95a204c5ad8ed360c4d2d6c1583780b4879e752856a418289889b8a9e18e6d1ebe721a141b2b0fd3275e22c7ca3661fb6db471e343067c2caf29218
+  languageName: node
+  linkType: hard
+
+"@sentry/types@npm:7.60.0":
+  version: 7.60.0
+  resolution: "@sentry/types@npm:7.60.0"
+  checksum: c145704ef188121df0f19e195026b6be22840f56c92e914b54063a2c2241ab09e7c3863530efd70bbb6d1152237b3b99f22a3d9cded06ac25e089121c2890dd7
+  languageName: node
+  linkType: hard
+
+"@sentry/utils@npm:7.60.0":
+  version: 7.60.0
+  resolution: "@sentry/utils@npm:7.60.0"
+  dependencies:
+    "@sentry/types": 7.60.0
+    tslib: ^2.4.1 || ^1.9.3
+  checksum: 3dd3dd2d7c33e011db700032d1a81f8c7c95f6b212f9685fd614e976fae1ff259dd98340e5ccca52bf251387e7f02949850edb5879a35da842e1b71a1e975331
+  languageName: node
+  linkType: hard
+
 "@sideway/address@npm:^4.1.3":
   version: 4.1.4
   resolution: "@sideway/address@npm:4.1.4"
@@ -2808,6 +2879,13 @@ __metadata:
   version: 0.5.0
   resolution: "cookie@npm:0.5.0"
   checksum: 1f4bd2ca5765f8c9689a7e8954183f5332139eb72b6ff783d8947032ec1fdf43109852c178e21a953a30c0dd42257828185be01b49d1eb1a67fd054ca588a180
+  languageName: node
+  linkType: hard
+
+"cookie@npm:^0.4.1":
+  version: 0.4.2
+  resolution: "cookie@npm:0.4.2"
+  checksum: a00833c998bedf8e787b4c342defe5fa419abd96b32f4464f718b91022586b8f1bafbddd499288e75c037642493c83083da426c6a9080d309e3bd90fd11baa9b
   languageName: node
   linkType: hard
 
@@ -5141,6 +5219,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru_map@npm:^0.3.3":
+  version: 0.3.3
+  resolution: "lru_map@npm:0.3.3"
+  checksum: ca9dd43c65ed7a4f117c548028101c5b6855e10923ea9d1f635af53ad20c5868ff428c364d454a7b57fe391b89c704982275410c3c5099cca5aeee00d76e169a
+  languageName: node
+  linkType: hard
+
 "macos-release@npm:^2.5.0":
   version: 2.5.1
   resolution: "macos-release@npm:2.5.1"
@@ -5580,6 +5665,8 @@ __metadata:
     "@nestjs/swagger": ^6.2.1
     "@nestjs/testing": ^9.0.0
     "@nestjs/typeorm": ^9.0.1
+    "@sentry/cli": latest
+    "@sentry/node": ^7.60.0
     "@types/express": ^4.17.13
     "@types/jest": 28.1.8
     "@types/node": ^16.0.0
@@ -5651,6 +5738,20 @@ __metadata:
     encoding:
       optional: true
   checksum: acb04f9ce7224965b2b59e71b33c639794d8991efd73855b0b250921382b38331ffc9d61bce502571f6cc6e11a8905ca9b1b6d4aeb586ab093e2756a1fd190d0
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.7":
+  version: 2.6.12
+  resolution: "node-fetch@npm:2.6.12"
+  dependencies:
+    whatwg-url: ^5.0.0
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 3bc1655203d47ee8e313c0d96664b9673a3d4dd8002740318e9d27d14ef306693a4b2ef8d6525775056fd912a19e23f3ac0d7111ad8925877b7567b29a625592
   languageName: node
   linkType: hard
 
@@ -6085,6 +6186,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"progress@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "progress@npm:2.0.3"
+  checksum: f67403fe7b34912148d9252cb7481266a354bd99ce82c835f79070643bb3c6583d10dbcfda4d41e04bbc1d8437e9af0fb1e1f2135727878f5308682a579429b7
+  languageName: node
+  linkType: hard
+
 "promise-inflight@npm:^1.0.1":
   version: 1.0.1
   resolution: "promise-inflight@npm:1.0.1"
@@ -6119,6 +6227,13 @@ __metadata:
     forwarded: 0.2.0
     ipaddr.js: 1.9.1
   checksum: 29c6990ce9364648255454842f06f8c46fcd124d3e6d7c5066df44662de63cdc0bad032e9bf5a3d653ff72141cc7b6019873d685708ac8210c30458ad99f2b74
+  languageName: node
+  linkType: hard
+
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
   languageName: node
   linkType: hard
 
@@ -7232,6 +7347,13 @@ __metadata:
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.4.1 || ^1.9.3":
+  version: 2.6.0
+  resolution: "tslib@npm:2.6.0"
+  checksum: c01066038f950016a18106ddeca4649b4d76caa76ec5a31e2a26e10586a59fceb4ee45e96719bf6c715648e7c14085a81fee5c62f7e9ebee68e77a5396e5538f
   languageName: node
   linkType: hard
 

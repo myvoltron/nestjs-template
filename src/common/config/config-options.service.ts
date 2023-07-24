@@ -10,5 +10,6 @@ export const CONFIG_OPTIONS_PROVIDER = {
     DB_PORT: Joi.number().required(),
     DB_USERNAME: Joi.string().required(),
     DB_PASSWORD: Joi.string().required(),
+    SENTRY_DSN: Joi.string().required(),
   }),
 };
