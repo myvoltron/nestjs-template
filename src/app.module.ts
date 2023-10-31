@@ -10,6 +10,7 @@ import { LoggingInterceptor } from './common/interceptors/logging.interceptor';
 import { WinstonLoggerModule } from './common/logger/winston-logger.module';
 import { ExtendRequest } from './common/middlewares/extend-request.middleware';
 import { CatsModule } from './modules/cats/cats.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CatsModule } from './modules/cats/cats.module';
     }),
     WinstonLoggerModule,
     CatsModule,
+    UsersModule,
   ],
   providers: [
     { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor },
