@@ -11,5 +11,6 @@ export const CONFIG_OPTIONS_PROVIDER = {
     DB_USERNAME: Joi.string().required(),
     DB_PASSWORD: Joi.string().required(),
     SENTRY_DSN: Joi.string().required(),
+    HASH_SALT: Joi.number().required(),
   }),
 };
