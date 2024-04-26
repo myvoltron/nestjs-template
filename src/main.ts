@@ -1,6 +1,6 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ClassSerializerInterceptor, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector } from '@nestjs/core';
 import * as Sentry from '@sentry/node';
 import { AppModule } from './app.module';
 import { setupDocument } from './common/docs/setup-document';
@@ -16,6 +16,7 @@ async function bootstrap() {
 
   app.useLogger(app.get<WinstonLogger>(WinstonLogger));
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
 
   setupDocument(app);
 
