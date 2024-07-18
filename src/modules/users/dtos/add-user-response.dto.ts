@@ -1,8 +1,10 @@
 import { User } from '../users.entity';
-import { Expose } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 
 export class AddUserResponseDto {
+  @Exclude()
   private readonly _name: string;
+  @Exclude()
   private readonly _email: string;
 
   constructor(user: Partial<User>) {
