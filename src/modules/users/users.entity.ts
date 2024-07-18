@@ -6,7 +6,7 @@ export class User {
   @PrimaryGeneratedColumn()
   idx: number;
 
-  @Column({ enum: SignType })
+  @Column({ type: 'enum', enum: SignType })
   signType: SignType;
 
   @Column()
